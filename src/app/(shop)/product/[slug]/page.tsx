@@ -12,6 +12,8 @@ import {
 
 import { titleFont } from '@/config/fonts';
 import { getProductBySlug, getStockBySlug } from '@/actions';
+import { AddToCart } from './ui/AddToCart';
+import { currencyFormat } from '@/utils';
 
 interface Props {
   params: {
@@ -45,7 +47,6 @@ export default async function ProductBySlugPage({ params }: Props) {
   const { slug } = params;
 
   const product = await getProductBySlug(slug);
-  const slock = await getStockBySlug(slug);
 
   if (!product) {
     notFound();
@@ -66,20 +67,8 @@ export default async function ProductBySlugPage({ params }: Props) {
       <div className="col-span-1 px-5">
         <StockLabel slug={slug} />
         <h1 className={`${titleFont.className} antialiased font-bold text-xl`}>{product.title}</h1>
-        <p className="text-lg mb-5">${product.price.toFixed(2)}</p>
-
-        {/** TODO: Selector de colores */}
-
-        {/** Selector de tallas */}
-        <SizeSelector availableSizes={product.sizes} selectedSize={product.sizes[0]} />
-
-        {/** Selector de cantidad  */}
-        <QuantitySelector quantity={2} />
-
-        {/** Button add card */}
-        <button type="button" className="btn-primary my-5 disabled:bg-gray-400" disabled={slock === 0}>
-          Agregar al carrito
-        </button>
+        <p className="text-lg mb-5">{currencyFormat(product.price)}</p>
+        <AddToCart product={product} />
 
         {/** Descripción del prducto */}
 

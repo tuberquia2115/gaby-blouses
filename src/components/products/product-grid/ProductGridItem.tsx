@@ -5,6 +5,7 @@ import Link from 'next/link';
 
 import { Product } from '@/interfaces';
 import { useState } from 'react';
+import { currencyFormat } from '@/utils';
 
 interface Props {
   product: Product;
@@ -29,7 +30,7 @@ export const ProductGridItem = ({ product }: Props) => {
         <Link className="hover:text-blue-600" href={`/product/${product.slug}`}>
           {product.title}
         </Link>
-        <span className="font-bold">${product.price.toFixed(2)}</span>
+        <span className="font-bold">{currencyFormat(product.price)}</span>
       </div>
     </div>
   );

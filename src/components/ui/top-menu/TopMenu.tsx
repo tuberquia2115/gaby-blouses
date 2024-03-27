@@ -6,11 +6,13 @@ import Link from 'next/link';
 import { subTitleFont } from '@/config/fonts';
 import { IoCartOutline, IoSearchOutline } from 'react-icons/io5';
 
-import { useUIStore } from '@/store';
+import { useCartStore, useUIStore } from '@/store';
 
 export const TopMenu = () => {
-  const [scrollY, setScrollY] = useState(0);
+  const totalItemsInCart = useCartStore((state) => state.getSummaryInformation().itemsInCart);
   const openMenu = useUIStore((state) => state.openSideMenu);
+  const [scrollY, setScrollY] = useState(0);
+  const [loaded, setLoaded] = useState(false);
 
   const onHandlerScrollY = () => {
     window.onscroll = () => {
@@ -18,7 +20,10 @@ export const TopMenu = () => {
     };
   };
 
-  useEffect(onHandlerScrollY, []);
+  useEffect(() => {
+    onHandlerScrollY();
+    setLoaded(true);
+  }, []);
 
   return (
     <nav
@@ -53,11 +58,13 @@ export const TopMenu = () => {
         <Link href="/search" className="mx-2">
           <IoSearchOutline className="w-5 h-5" />
         </Link>
-        <Link href="/cart" className="mx-2">
+        <Link href={totalItemsInCart === 0 && loaded ? '/empty' : '/cart'} className="mx-2">
           <div className="relative">
-            <span className="absolute text-xs rounded-full px-1 font-bold -top-2 -right-2 bg-blue-700 text-white">
-              3
-            </span>
+            {loaded && totalItemsInCart > 0 && (
+              <span className="absolute text-xs rounded-full px-1 font-bold -top-2 -right-2 bg-blue-700 text-white fade-in">
+                {totalItemsInCart}
+              </span>
+            )}
             <IoCartOutline className="w-5 h-5" />
           </div>
         </Link>

@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import { redirect, usePathname, useSearchParams } from 'next/navigation';
 import { IoArrowRedoOutline, IoArrowUndoOutline } from 'react-icons/io5';
 
-import { generatePaginationNumbers } from '../../../../utils';
+import { generatePaginationNumbers } from '@/utils';
 
 interface Props {
   totalPages: number;
