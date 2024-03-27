@@ -1,15 +1,17 @@
+export const revalidate = 604800;
+
+import type { Metadata, ResolvingMetadata } from 'next';
+import { notFound } from 'next/navigation';
 import {
-  ColorSelector,
   ProductMobileSlideShow,
   ProductSlideShow,
   QuantitySelector,
   SizeSelector,
+  StockLabel,
 } from '@/components';
-import { titleFont } from '@/config/fonts';
-import { initialData } from '@/seed/seed';
-import { notFound } from 'next/navigation';
 
-const products = initialData.products;
+import { titleFont } from '@/config/fonts';
+import { getProductBySlug, getStockBySlug } from '@/actions';
 
 interface Props {
   params: {
@@ -17,10 +19,33 @@ interface Props {
   };
 }
 
-export default function ProductBySlugPage({ params }: Props) {
+export async function generateMetadata({ params }: Props, parent: ResolvingMetadata): Promise<Metadata> {
+  // read route params
   const { slug } = params;
 
-  const product = products.find((product) => product.slug === slug);
+  // fetch data
+  const product = await getProductBySlug(slug);
+
+  // optionally access and extend (rather than replace) parent metadata
+  // const previousImages = (await parent).openGraph?.images || [];
+
+  return {
+    title: product?.title ?? 'Producto no encontrado',
+    description: product?.description ?? '',
+    openGraph: {
+      title: product?.title ?? 'Producto no encontrado',
+      description: product?.description ?? '',
+      // todo: images: [], https://misitioweb.com/products/image.pnh
+      images: [require(`../../../../../public/products/${product?.images[1]}`)],
+    },
+  };
+}
+
+export default async function ProductBySlugPage({ params }: Props) {
+  const { slug } = params;
+
+  const product = await getProductBySlug(slug);
+  const slock = await getStockBySlug(slug);
 
   if (!product) {
     notFound();
@@ -39,13 +64,12 @@ export default function ProductBySlugPage({ params }: Props) {
 
       {/** Detalles */}
       <div className="col-span-1 px-5">
-        <h1 className={`${titleFont.className} antialiased text-xl`}>{product.title}</h1>
+        <StockLabel slug={slug} />
+        <h1 className={`${titleFont.className} antialiased font-bold text-xl`}>{product.title}</h1>
         <p className="text-lg mb-5">${product.price.toFixed(2)}</p>
 
         {/** TODO: Selector de colores */}
-        {product.colors && (
-          <ColorSelector selectedColor={product.colors[1]} availableColors={product.colors} />
-        )}
+
         {/** Selector de tallas */}
         <SizeSelector availableSizes={product.sizes} selectedSize={product.sizes[0]} />
 
@@ -53,7 +77,7 @@ export default function ProductBySlugPage({ params }: Props) {
         <QuantitySelector quantity={2} />
 
         {/** Button add card */}
-        <button type="button" className="btn-primary my-5">
+        <button type="button" className="btn-primary my-5 disabled:bg-gray-400" disabled={slock === 0}>
           Agregar al carrito
         </button>
 

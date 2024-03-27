@@ -4,8 +4,11 @@ import './globals.css';
 import { inter } from '@/config/fonts';
 
 export const metadata: Metadata = {
-  title: 'Gaby | Blouses',
-  description: 'Tieda virtual de productos',
+  title: {
+    template: '%s - Gaby | Blouses',
+    default: 'Home - Gaby | Blouses',
+  },
+  description: 'Una Tieda virtual de productos',
 };
 
 export default function RootLayout({

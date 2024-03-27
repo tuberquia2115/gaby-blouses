@@ -5,6 +5,7 @@ export * from './product/slideshow/ProductMobileSlideShow';
 export * from './product/slideshow/ProductSlideShow';
 export * from './products/product-grid/ProductGrid';
 export * from './products/product-grid/ProductGridItem';
+export * from './product/stock-label/StockLabel';
 
 export * from './ui/footer/Footer';
 export * from './ui/pagination/Pagination';
