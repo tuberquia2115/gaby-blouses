@@ -23,7 +23,7 @@ export const TopMenu = () => {
   return (
     <nav
       className={clsx('flex px-5 justify-between items-center w-ful h-14', {
-        'fixed top-0 z-10 w-full bg-white fade-in': scrollY >= 56,
+        'fixed top-0 z-10 w-full bg-white transition-all shadow': scrollY >= 56,
       })}
     >
       {/* Logo */}
