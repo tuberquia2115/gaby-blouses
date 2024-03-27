@@ -1,14 +1,31 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+import clsx from 'clsx';
 import Link from 'next/link';
 import { subTitleFont } from '@/config/fonts';
 import { IoCartOutline, IoSearchOutline } from 'react-icons/io5';
+
 import { useUIStore } from '@/store';
 
 export const TopMenu = () => {
+  const [scrollY, setScrollY] = useState(0);
   const openMenu = useUIStore((state) => state.openSideMenu);
+
+  const onHandlerScrollY = () => {
+    window.onscroll = () => {
+      setScrollY(window.scrollY);
+    };
+  };
+
+  useEffect(onHandlerScrollY, []);
+
   return (
-    <nav className="flex px-5 justify-between items-center w-full">
+    <nav
+      className={clsx('flex px-5 justify-between items-center w-ful h-14', {
+        'fixed top-0 z-10 w-full bg-white fade-in': scrollY >= 56,
+      })}
+    >
       {/* Logo */}
       <div>
         <Link href="/">

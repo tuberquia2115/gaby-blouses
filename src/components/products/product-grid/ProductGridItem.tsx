@@ -19,9 +19,7 @@ export const ProductGridItem = ({ product }: Props) => {
         <Image
           src={require(`../../../../public/products/${displayImg}`)}
           alt={product.title}
-          className="w-full object-cover rounded"
-          width={500}
-          height={500}
+          className="object-cover rounded"
           onMouseEnter={() => setDisplayImg(product.images[1])}
           onMouseLeave={() => setDisplayImg(product.images[0])}
         />
@@ -31,7 +29,7 @@ export const ProductGridItem = ({ product }: Props) => {
         <Link className="hover:text-blue-600" href={`/product/${product.slug}`}>
           {product.title}
         </Link>
-        <span className="font-bold">${product.price}</span>
+        <span className="font-bold">${product.price.toFixed(2)}</span>
       </div>
     </div>
   );
