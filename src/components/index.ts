@@ -7,6 +7,8 @@ export * from './products/product-grid/ProductGrid';
 export * from './products/product-grid/ProductGridItem';
 export * from './product/stock-label/StockLabel';
 
+export * from './provider/Provider';
+
 export * from './ui/footer/Footer';
 export * from './ui/pagination/Pagination';
 
