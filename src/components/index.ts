@@ -11,6 +11,7 @@ export * from './provider/Provider';
 
 export * from './ui/footer/Footer';
 export * from './ui/pagination/Pagination';
+export * from './ui/form-input/FormInput';
 
 export * from './ui/not-found/PageNotFound';
 export * from './ui/side-menu/SideMenu';

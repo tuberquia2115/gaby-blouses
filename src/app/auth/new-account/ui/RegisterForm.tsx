@@ -6,7 +6,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
-import { FormInput } from './FormInput';
+import { FormInput } from '@/components';
 
 const schema = z.object({
   name: z.string().min(4, 'Name must be at least 3 characters'),

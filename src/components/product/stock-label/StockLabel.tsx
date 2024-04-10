@@ -24,7 +24,7 @@ export const StockLabel = ({ slug }: Props) => {
 
   useEffect(() => {
     getStock();
-  }, []);
+  }, [getStock]);
 
   return (
     <>

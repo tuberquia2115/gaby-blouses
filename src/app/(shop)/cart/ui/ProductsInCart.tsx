@@ -37,15 +37,12 @@ export const ProductsInCart = () => {
   return (
     <>
       {productsInCart.map((product) => (
-        <div
-          key={`${product.slug}-${product.size}`}
-          className="flex mb-3 bg-white rounded-r-full pr-5 shadow-md"
-        >
+        <div key={`${product.slug}-${product.size}`} className="flex mb-3 rounded-s-full bg-white pr-5">
           <Image
             src={require(`../../../../../public/products/${product.image}`)}
             style={{ width: '100px', height: '100px' }}
             alt={product.title}
-            className="mr-5 rounded-e-full"
+            className="mr-5 rounded-s-full"
           />
           <div className="flex w-full justify-between items-center py-2">
             <div>

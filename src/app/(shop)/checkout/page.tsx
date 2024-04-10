@@ -21,9 +21,9 @@ export default function CheckoutPage() {
 
             {/** Items  */}
             {productsInCart.map((product) => (
-              <div key={product.slug} className="flex mb-3 bg-white rounded-full pr-5 shadow-md items-center">
+              <div key={product.slug} className="flex mb-3 pr-5 items-center">
                 <Image
-                  src={require(`../../../../public/products/${product.images[0]}`)}
+                  src={require(`../../../../public/products/${product.images[1]}`)}
                   style={{ width: '100px', height: '100px' }}
                   alt={product.title}
                   className="mr-5 rounded-s-full"
