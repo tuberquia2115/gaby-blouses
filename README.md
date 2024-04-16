@@ -9,3 +9,4 @@
 5. Correr las migraciones de prisma ```npx prisma migrate dev```
 6. Ejecutar el seed ```yarn run seed```
 7. Correr el proyecto ```yarn run dev```
+8. Limpiar el localStorage del navegador

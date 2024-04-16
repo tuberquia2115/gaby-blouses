@@ -1,11 +1,10 @@
 import Image from 'next/image';
-import { IoCardOutline } from 'react-icons/io5';
-import clsx from 'clsx';
+import { redirect } from 'next/navigation';
 
 import { Title } from '@/components';
-import { initialData } from '@/seed/seed';
-
-const productsInCart = [initialData.products[0], initialData.products[1], initialData.products[2]];
+import { getOrderById } from '@/actions';
+import { currencyFormat } from '@/utils';
+import { PaidOrderBtn } from './ui/PaidOrderBtn';
 
 interface Props {
   params: {
@@ -13,46 +12,45 @@ interface Props {
   };
 }
 
-const PaidOrderBtn = () => (
-  <div
-    className={clsx('flex items-center rounded-lg py-2 px-3.5 text-xs font-bold text-white mb-5', {
-      'bg-red-500': false,
-      'bg-green-700': true,
-    })}
-  >
-    <IoCardOutline size={30} />
-    {/* <span className="mx-2">Pendiente de pago </span> */}
-    <span className="mx-2">Pagada</span>
-  </div>
-);
-
-export default function OrderByPage({ params }: Props) {
+export default async function OrderByPage({ params }: Props) {
   const { id } = params;
 
-  // Todo: Verificar orden
-  // redirect()
+  const { order, ok } = await getOrderById(id);
+
+  if (!ok) {
+    redirect('/');
+  }
+
+  const address = order?.OrderAddress;
+  const orderItems = order?.OrderItem;
+
   return (
     <div className="flex justify-center items-center mb-72 px-10 sm:px-0">
       <div className="flex flex-col w-8/12">
-        <Title title={`Orden #${id}`} />
+        <Title title={`Orden #${id.split('-').at(-1)}`} />
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
           {/** Cart */}
           <div className="flex flex-col mt-5">
-            <PaidOrderBtn />
+            <PaidOrderBtn isPaid={order!.isPaid} />
 
             {/** Items  */}
-            {productsInCart.map((product) => (
-              <div key={product.slug} className="flex mb-3 bg-white rounded-full pr-5 shadow-md items-center">
+            {orderItems!.map((item) => (
+              <div
+                key={item.product.slug + '-' + item.size}
+                className="flex mb-3 rounded-s-full bg-white pr-5"
+              >
                 <Image
-                  src={require(`../../../../../public/products/${product.images[0]}`)}
+                  src={require(`../../../../../public/products/${item.product.ProductImage[0].url}`)}
                   style={{ width: '100px', height: '100px' }}
-                  alt={product.title}
+                  alt={item.product.title}
                   className="mr-5 rounded-s-full"
                 />
                 <div>
-                  <p>{product.title}</p>
-                  <p>${product.price} * 3</p>
-                  <p className="font-bold">Subtotal: ${(product.price * 3).toFixed(2)}</p>
+                  <p>{item.product.title}</p>
+                  <p>
+                    ${item.price} * {item.quantity}
+                  </p>
+                  <p className="font-bold">Subtotal:{currencyFormat(item.price * item.quantity)}</p>
                 </div>
               </div>
             ))}
@@ -62,14 +60,17 @@ export default function OrderByPage({ params }: Props) {
           <div className="bg-white rounded-xl shadow-xl p-7">
             <h2 className="text-2xl font-bold mb-2">Dirección de entrega</h2>
             <div className="mb-10">
-              <p className="text-xl">Jose Manuel Graciano Tuberquia</p>
+              <p className="text-xl">
+                {address!.firstName} {address!.lastName}
+              </p>
 
-              <p>Calle 23 Bis Oeste av 6-14</p>
-              <p>Alcaldía de Palmira</p>
-              <p>Villa del mar</p>
-              <p>Cali - Valle del cauca</p>
-              <p>CP 70345</p>
-              <p>3174263716</p>
+              <p>{address!.address}</p>
+              <p>{address!.address2}</p>
+              <p>{address!.postalCode}</p>
+              <p>
+                {address!.city}, {address!.countryId}
+              </p>
+              <p>{address!.phone}</p>
             </div>
 
             {/** divider */}
@@ -79,20 +80,22 @@ export default function OrderByPage({ params }: Props) {
             <h2 className="text-2xl mb-2">Resumen de la compra</h2>
             <div className="grid grid-cols-2">
               <span>No. Productos</span>
-              <span className="text-right">3 Artículos</span>
+              <span className="text-right">
+                {order?.itemsInOrder === 1 ? '1 Artículo' : `${order?.itemsInOrder} Artículos`}
+              </span>
 
               <span>Sub-Total</span>
-              <span className="text-right">$ 100</span>
+              <span className="text-right">{currencyFormat(order!.subTotal)}</span>
 
               <span>Impuestos (15%)</span>
-              <span className="text-right">$ 100</span>
+              <span className="text-right">{currencyFormat(order!.tax)}</span>
 
               <span className="mt-5 text-2xl">Total: </span>
-              <span className=" mt-5 text-2xl text-right">$ 100</span>
+              <span className=" mt-5 text-2xl text-right">{currencyFormat(order!.total)}</span>
             </div>
 
             <div className="mt-5 mb-2 w-full">
-              <PaidOrderBtn />
+              <PaidOrderBtn isPaid={order!.isPaid} />
             </div>
           </div>
         </div>
