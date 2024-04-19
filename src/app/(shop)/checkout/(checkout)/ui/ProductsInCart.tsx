@@ -5,20 +5,14 @@ import Image from 'next/image';
 
 import { useCartStore } from '@/store';
 import { currencyFormat } from '@/utils';
-import { redirect } from 'next/navigation';
 
 export const ProductsInCart = () => {
   const [loaded, setLoaded] = useState(false);
   const productsInCart = useCartStore((state) => state.cart);
-  const totalItemsInCart = useCartStore((state) => state.getSummaryInformation().itemsInCart);
 
   useEffect(() => {
     setLoaded(true);
-  });
-
-  if (totalItemsInCart === 0) {
-    redirect('/');
-  }
+  }, []);
 
   if (!loaded) {
     return <p>Loading...</p>;

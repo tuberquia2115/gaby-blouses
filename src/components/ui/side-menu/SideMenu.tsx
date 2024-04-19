@@ -44,13 +44,13 @@ export const SideMenu = () => {
       <nav
         // todo: efecto de lide
         className={clsx(
-          'fixed p-5 right-0 top-0 w-[500px] h-screen bg-white z-20 shadow-2xl transform transition-all duration-300',
+          'fixed p-5 right-0 top-0 w-[450px] h-screen bg-white z-20 shadow-2xl transform transition-all duration-300',
           { 'translate-x-full': !isSideMenuOpen }
         )}
       >
         <IoCloseCircleOutline
           size={30}
-          className="absolute top-5 right-5 cursor-pointer"
+          className="absolute top-5 right-10 md:right-5 cursor-pointer"
           onClick={() => closeMenu()}
         />
 
@@ -59,7 +59,7 @@ export const SideMenu = () => {
           <input
             type="text"
             placeholder="Buscar"
-            className="w-full bg-gray-50 rounded pl-10 pr-10 border-b-2 text-xl border-gray-200 focus:outline-none focus:border-blue-500"
+            className="w-[380px] md:w-full bg-gray-50 rounded pl-10 pr-10 border-b-2 text-xl border-gray-200 focus:outline-none focus:border-blue-500"
           />
         </div>
 

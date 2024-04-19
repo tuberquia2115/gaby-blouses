@@ -18,7 +18,7 @@ export const LoginForm = () => {
     if (state === 'Success') {
       window.location.replace(redirectTo ?? '/');
     }
-  }, [state]);
+  }, [state, redirectTo]);
 
   return (
     <form action={dispatch} className="flex flex-col">

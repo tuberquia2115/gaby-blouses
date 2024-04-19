@@ -1,6 +1,6 @@
-import { subTitleFont, titleFont } from '@/config/fonts';
 import Link from 'next/link';
-import React from 'react';
+
+import { subTitleFont, titleFont } from '@/config/fonts';
 
 export const Footer = () => {
   return (

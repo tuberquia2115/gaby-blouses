@@ -1,15 +1,16 @@
 'use client';
 
-import { placeOrder } from '@/actions';
-import { useAddressStore, useCartStore } from '@/store';
-import { currencyFormat } from '@/utils';
-import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import clsx from 'clsx';
+
+import { useAddressStore, useCartStore } from '@/store';
+import { currencyFormat, sleep } from '@/utils';
+import { placeOrder } from '@/actions';
 
 export const PlaceOrder = () => {
+  const router = useRouter();
   const [loaded, setLoaded] = useState(false);
-
   const [isPlacingOrder, setIsPlacingOrder] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -40,9 +41,8 @@ export const PlaceOrder = () => {
     }
 
     //* todo salio bien!
-    console.log('resp', resp);
     clearCart();
-    window.location.replace(`/orders/${resp.order?.id}`);
+    router.replace(`/orders/${resp.order?.id}`);
   };
 
   if (!loaded) {
@@ -103,7 +103,6 @@ export const PlaceOrder = () => {
             'btn-primary': !isPlacingOrder,
             'btn-disabled': isPlacingOrder,
           })}
-          // href="/orders/123"
         >
           Colocar orden
         </button>

@@ -1,10 +1,9 @@
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
 
-import { Title } from '@/components';
+import { OrderStatus, PaypalButton, Title } from '@/components';
 import { getOrderById } from '@/actions';
 import { currencyFormat } from '@/utils';
-import { PaidOrderBtn } from './ui/PaidOrderBtn';
 
 interface Props {
   params: {
@@ -12,7 +11,7 @@ interface Props {
   };
 }
 
-export default async function OrderByPage({ params }: Props) {
+export default async function OrderByIdPage({ params }: Props) {
   const { id } = params;
 
   const { order, ok } = await getOrderById(id);
@@ -31,7 +30,7 @@ export default async function OrderByPage({ params }: Props) {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
           {/** Cart */}
           <div className="flex flex-col mt-5">
-            <PaidOrderBtn isPaid={order!.isPaid} />
+            <OrderStatus isPaid={order!.isPaid} />
 
             {/** Items  */}
             {orderItems!.map((item) => (
@@ -95,7 +94,11 @@ export default async function OrderByPage({ params }: Props) {
             </div>
 
             <div className="mt-5 mb-2 w-full">
-              <PaidOrderBtn isPaid={order!.isPaid} />
+              {order?.isPaid ? (
+                <OrderStatus isPaid={order!.isPaid} />
+              ) : (
+                <PaypalButton amount={order?.total!} orderId={order?.id!} />
+              )}
             </div>
           </div>
         </div>

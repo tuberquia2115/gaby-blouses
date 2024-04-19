@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { getStockBySlug } from '@/actions';
 import { titleFont } from '@/config/fonts';
@@ -16,11 +16,11 @@ export const StockLabel = ({ slug }: Props) => {
 
   const isEmptyStock = stock === 0;
 
-  const getStock = async () => {
+  const getStock = useCallback(async () => {
     const inStock = await getStockBySlug(slug);
     setStock(inStock);
     setIsLoading(false);
-  };
+  }, [slug]);
 
   useEffect(() => {
     getStock();
