@@ -13,7 +13,16 @@ import prisma from '@/lib/prisma';
 // /checkout
 // /checkout/address
 
-const autheticatedRoutes = ['/checkout', '/checkout/address', '/profile'];
+const authRoutes = ['/auth/login', '/auth/new-account'];
+const autheticatedRoutes = [
+  '/checkout',
+  '/checkout/address',
+  '/profile',
+  '/admin',
+  '/admin/orders',
+  '/admin/users',
+];
+
 export const authConfig: NextAuthConfig = {
   pages: {
     signIn: '/auth/login',
@@ -43,11 +52,17 @@ export const authConfig: NextAuthConfig = {
 
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
-      const isOnAuth = ['/auth/login', '/auth/new-account'].includes(nextUrl.pathname);
+      const isAdminRole = auth?.user.role === 'admin';
+      const isOnAuth = authRoutes.includes(nextUrl.pathname);
       const isOnDashboard = autheticatedRoutes.includes(nextUrl.pathname);
 
       if (isOnDashboard) {
-        if (isLoggedIn) return true;
+        if (isLoggedIn) {
+          if (!isAdminRole) {
+            return false;
+          }
+          return true;
+        }
         return false; // Redirect unauthenticated users to login page
       } else if (isLoggedIn) {
         if (isOnAuth) {

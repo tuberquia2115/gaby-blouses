@@ -8,7 +8,7 @@ interface PaginationOptions {
   take?: number;
 }
 
-export const getPaginatedOrdersByUser = async ({ page = 1, take = 5 }: PaginationOptions) => {
+export const getPaginatedOrders = async ({ page = 1, take = 5 }: PaginationOptions) => {
   const session = await auth();
 
   if (!session?.user) {
@@ -18,6 +18,8 @@ export const getPaginatedOrdersByUser = async ({ page = 1, take = 5 }: Paginatio
     };
   }
 
+  const isAdmin = session.user.role === 'admin';
+
   if (isNaN(Number(page))) page = 1;
   if (isNaN(Number(take))) take = 12;
   if (page < 1) page = 1;
@@ -26,9 +28,8 @@ export const getPaginatedOrdersByUser = async ({ page = 1, take = 5 }: Paginatio
   try {
     // obtener todas las ordernes del usuario
     const orders = await prisma.order.findMany({
-      where: {
-        userId: session.user.id,
-      },
+      orderBy: { createdAt: 'desc' },
+      where: isAdmin ? undefined : { userId: session.user.id },
       include: {
         OrderAddress: {
           select: {
@@ -42,7 +43,7 @@ export const getPaginatedOrdersByUser = async ({ page = 1, take = 5 }: Paginatio
       skip: (page - 1) * take,
     });
 
-    const totalCount = await prisma.order.count({ where: { userId: session.user.id } });
+    const totalCount = await prisma.order.count({ where: isAdmin ? undefined : { userId: session.user.id } });
     const totalPages = Math.ceil(totalCount / take);
 
     return {

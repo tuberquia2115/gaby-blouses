@@ -1,11 +1,11 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 
 import { Product } from '@/interfaces';
 import { useState } from 'react';
 import { currencyFormat } from '@/utils';
+import { ProductImage } from '@/components/product/product-image/ProductImage';
 
 interface Props {
   product: Product;
@@ -17,10 +17,12 @@ export const ProductGridItem = ({ product }: Props) => {
   return (
     <div className="rounded-md overflow-hidden fade-in">
       <Link href={`/product/${product.slug}`}>
-        <Image
-          src={require(`../../../../public/products/${displayImg}`)}
+        <ProductImage
+          src={displayImg}
           alt={product.title}
-          className="object-cover"
+          className="object-cover w-full h-[426px]"
+          height={500}
+          width={500}
           onMouseEnter={() => setDisplayImg(product.images[1])}
           onMouseLeave={() => setDisplayImg(product.images[0])}
         />

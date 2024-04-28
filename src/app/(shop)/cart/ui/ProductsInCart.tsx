@@ -6,7 +6,7 @@ import { IoTrashOutline } from 'react-icons/io5';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { QuantitySelector } from '@/components';
+import { ProductImage, QuantitySelector } from '@/components';
 import { useCartStore } from '@/store';
 import { currencyFormat } from '@/utils';
 import { CartProduct } from '@/interfaces';
@@ -22,7 +22,7 @@ export const ProductsInCart = () => {
   const onRemoveProduct = (product: CartProduct) => {
     removeProduct(product);
     if (totalItemsInCart === 1) {
-      router.replace('/');
+      router.replace('/empty');
     }
   };
 
@@ -38,8 +38,10 @@ export const ProductsInCart = () => {
     <>
       {productsInCart.map((product) => (
         <div key={`${product.slug}-${product.size}`} className="flex mb-3 rounded-s-full bg-white pr-5">
-          <Image
-            src={require(`../../../../../public/products/${product.image}`)}
+          <ProductImage
+            src={product.image}
+            width={100}
+            height={100}
             style={{ width: '100px', height: '100px' }}
             alt={product.title}
             className="mr-5 rounded-s-full"

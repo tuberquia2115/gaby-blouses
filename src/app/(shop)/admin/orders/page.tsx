@@ -28,7 +28,7 @@ export default async function OrdersPage({ searchParams }: Props) {
   }
   return (
     <>
-      <Title title="Orders" />
+      <Title title="Todas las ordenes" />
       <div className="mb-10">
         <table className="min-w-full">
           <thead className="bg-blue-600 border-b">

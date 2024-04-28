@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { subTitleFont, titleFont } from '@/config/fonts';
-import { IoCartOutline, IoSearchOutline } from 'react-icons/io5';
+import { IoCartOutline, IoMenuOutline, IoSearchOutline } from 'react-icons/io5';
 
 import { useCartStore, useUIStore } from '@/store';
 import { useSession } from 'next-auth/react';
@@ -13,20 +13,10 @@ export const TopMenu = () => {
   const { data: session } = useSession();
   const totalItemsInCart = useCartStore((state) => state.getSummaryInformation().itemsInCart);
   const openMenu = useUIStore((state) => state.openSideMenu);
-  const [scrollY, setScrollY] = useState(0);
   const [loaded, setLoaded] = useState(false);
   const isAdmin = session?.user.role === 'admin';
 
-  const onHandlerScrollY = () => {
-    window.onscroll = () => {
-      setScrollY(window.scrollY);
-    };
-  };
-  // {
-  //   'fixed top-0 z-10 w-full bg-white transition-all shadow': scrollY >= 56,
-  // }
   useEffect(() => {
-    onHandlerScrollY();
     setLoaded(true);
   }, []);
 
@@ -36,8 +26,8 @@ export const TopMenu = () => {
       <div>
         <Link href="/">
           <span className={`${subTitleFont.className} antialiased font-bold`}>Gaby</span>
-          <span> | Blouses | </span>
-          {isAdmin && <span className={`${titleFont.className} antialiased font-bold`}>Administrador</span>}
+          <span> | Blouses </span>
+          {isAdmin && <span className={`${titleFont.className} antialiased font-bold`}>| Administrador</span>}
         </Link>
       </div>
       {/** Center Menu */}
@@ -67,11 +57,11 @@ export const TopMenu = () => {
                 {totalItemsInCart}
               </span>
             )}
-            <IoCartOutline className="w-5 h-5" color="blue" />
+            <IoCartOutline className="w-5 h-5" />
           </div>
         </Link>
         <button onClick={() => openMenu()} className="m-2 p-2 rounded-md transition-all hover:bg-gray-200">
-          Menú
+          <IoMenuOutline size={30} />
         </button>
       </div>
     </nav>

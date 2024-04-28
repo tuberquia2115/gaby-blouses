@@ -26,6 +26,12 @@ export const SideMenu = () => {
   const isAuthenticated = !!session?.user;
   const isAdmin = session?.user.role === 'admin';
 
+  const onLogout = () => {
+    localStorage.removeItem('shopping-cart');
+    localStorage.removeItem('address-storage');
+    logout();
+  };
+
   return (
     <div className="">
       {/** Background back */}
@@ -72,15 +78,16 @@ export const SideMenu = () => {
               icon={<IoPersonOutline size={30} />}
               onCloseMenu={() => closeMenu()}
             />
-
-            <NavItem
-              href="/orders"
-              label="Ordenes"
-              icon={<IoTicketOutline size={30} />}
-              onCloseMenu={() => closeMenu()}
-            />
+            {!isAdmin && (
+              <NavItem
+                href="/orders"
+                label="Ordenes"
+                icon={<IoTicketOutline size={30} />}
+                onCloseMenu={() => closeMenu()}
+              />
+            )}
             <button
-              onClick={() => logout()}
+              onClick={() => onLogout()}
               className="flex w-full items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all"
             >
               <IoLogOutOutline size={30} />
@@ -101,21 +108,21 @@ export const SideMenu = () => {
           <>
             <div className="w-full h-px  bg-gray-200 my-10" />
             <NavItem
-              href="/products"
+              href="/admin/products"
               label="Productos"
               icon={<IoShirtOutline size={30} />}
               onCloseMenu={() => closeMenu()}
             />
 
             <NavItem
-              href="/orders"
+              href="/admin/orders"
               label="Ordenes"
               icon={<IoTicketOutline size={30} />}
               onCloseMenu={() => closeMenu()}
             />
 
             <NavItem
-              href="/users"
+              href="/admin/users"
               label="Usuarios"
               icon={<IoPeopleOutline size={30} />}
               onCloseMenu={() => closeMenu()}

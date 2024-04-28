@@ -56,8 +56,8 @@ export const PaypalButton = ({ orderId, amount }: Props) => {
   };
 
   return (
-    <>
+    <div className="relative z-0">
       <PayPalButtons createOrder={createOrder} onApprove={onApprove} style={{ color: 'blue' }} />
-    </>
+    </div>
   );
 };

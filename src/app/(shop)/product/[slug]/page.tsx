@@ -2,16 +2,10 @@ export const revalidate = 604800;
 
 import type { Metadata, ResolvingMetadata } from 'next';
 import { notFound } from 'next/navigation';
-import {
-  ProductMobileSlideShow,
-  ProductSlideShow,
-  QuantitySelector,
-  SizeSelector,
-  StockLabel,
-} from '@/components';
+import { ProductMobileSlideShow, ProductSlideShow, StockLabel } from '@/components';
 
 import { titleFont } from '@/config/fonts';
-import { getProductBySlug, getStockBySlug } from '@/actions';
+import { getProductBySlug } from '@/actions';
 import { AddToCart } from './ui/AddToCart';
 import { currencyFormat } from '@/utils';
 
@@ -27,6 +21,9 @@ export async function generateMetadata({ params }: Props, parent: ResolvingMetad
 
   // fetch data
   const product = await getProductBySlug(slug);
+  const hasImages = Boolean(product?.images.length);
+
+  const images = hasImages ? `/products/${product?.images[1]}` : '/imgs/placeholder.jpg';
 
   // optionally access and extend (rather than replace) parent metadata
   // const previousImages = (await parent).openGraph?.images || [];
@@ -38,7 +35,7 @@ export async function generateMetadata({ params }: Props, parent: ResolvingMetad
       title: product?.title ?? 'Producto no encontrado',
       description: product?.description ?? '',
       // todo: images: [], https://misitioweb.com/products/image.pnh
-      images: [require(`../../../../../public/products/${product?.images[1]}`)],
+      images: [images],
     },
   };
 }

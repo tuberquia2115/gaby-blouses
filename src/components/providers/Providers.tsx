@@ -17,7 +17,7 @@ export const Providers = ({ children }: Props) => {
         currency: 'USD',
       }}
     >
-      <SessionProvider>{children}</SessionProvider>;
+      <SessionProvider>{children}</SessionProvider>
     </PayPalScriptProvider>
   );
 };
