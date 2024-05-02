@@ -33,9 +33,9 @@ export async function generateMetadata({ params }: Props, parent: ResolvingMetad
     description: product?.description ?? '',
     openGraph: {
       title: product?.title ?? 'Producto no encontrado',
-      description: product?.description ?? '',
-      // todo: images: [], https://misitioweb.com/products/image.pnh
-      images: [images],
+      description: product?.description ?? "",
+      // images: [], // https://misitioweb.com/products/image.png
+      images: [ `/products/${ product?.images[1] }`],
     },
   };
 }
