@@ -8,7 +8,7 @@ interface PaginationOptions {
   take?: number;
 }
 
-export const getPaginatedOrders = async ({ page = 1, take = 5 }: PaginationOptions) => {
+export async function getPaginatedOrders({ page = 1, take = 5 }: PaginationOptions) {
   const session = await auth();
 
   if (!session?.user) {

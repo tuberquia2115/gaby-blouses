@@ -1,10 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
 
 import { useCartStore } from '@/store';
 import { currencyFormat } from '@/utils';
+import { ProductImage } from '@/components';
 
 export const ProductsInCart = () => {
   const [loaded, setLoaded] = useState(false);
@@ -22,8 +22,10 @@ export const ProductsInCart = () => {
     <>
       {productsInCart.map((product) => (
         <div key={`${product.slug}-${product.size}`} className="flex mb-3 rounded-s-full bg-white pr-5">
-          <Image
-            src={require(`../../../../../../public/products/${product.image}`)}
+          <ProductImage
+            height={100}
+            width={100}
+            src={product.image}
             style={{ width: '100px', height: '100px' }}
             alt={product.title}
             className="mr-5 rounded-s-full"

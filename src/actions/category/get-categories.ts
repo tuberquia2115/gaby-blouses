@@ -2,7 +2,7 @@
 
 import prisma from '@/lib/prisma';
 
-export const getCategories = async () => {
+export async function getCategories() {
   try {
     const categories = await prisma.category.findMany();
     return categories;

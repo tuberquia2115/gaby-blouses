@@ -8,7 +8,7 @@ interface PaginationOptions {
   take?: number;
   gender?: Gender;
 }
-export const getPaginatedProductsWithImages = async ({ page = 1, take = 12, gender }: PaginationOptions) => {
+export async function getPaginatedProductsWithImages({ page = 1, take = 12, gender }: PaginationOptions) {
   if (isNaN(Number(page))) page = 1;
   if (isNaN(Number(take))) take = 12;
   if (page < 1) page = 1;

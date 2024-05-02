@@ -3,7 +3,7 @@
 import prisma from "@/lib/prisma";
 
 
-export const getAllProducts = async () => {
+export async function getAllProducts() {
 
     try {
         const allProducts = await prisma.product.findMany({

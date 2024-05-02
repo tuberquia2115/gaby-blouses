@@ -7,7 +7,8 @@ interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   errors: FieldError | undefined;
 }
 
-export const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>((props, ref) => {
+// react/display-name
+const FormInput =  React.forwardRef<HTMLInputElement, FormInputProps>((props, ref) => {
   const { label, errors, id, ...restProps } = props;
   return (
     <div className="flex flex-col">
@@ -23,3 +24,9 @@ export const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>((pro
     </div>
   );
 });
+
+FormInput.displayName = "FormInput"
+
+export {
+  FormInput
+}

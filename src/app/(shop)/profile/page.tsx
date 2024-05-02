@@ -17,6 +17,7 @@ export default async function ProfilePage() {
         alt="Profile picture"
         width={100}
         height={100}
+        priority
       />
       <h2 className="text-center text-2xl font-semibold mt-3">{session?.user.name}</h2>
       <p className="text-center text-gray-600 mt-1">Rol: {session?.user.role.toUpperCase()}</p>

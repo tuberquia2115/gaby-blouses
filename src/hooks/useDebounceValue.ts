@@ -12,7 +12,7 @@ export const useDebounceValue = (value: string, delaySeconds: number = 3) => {
             clearTimeout(handler)
         }
 
-    }, [value])
+    }, [value, delaySeconds])
 
 
 

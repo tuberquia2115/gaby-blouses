@@ -31,7 +31,7 @@ export const ProductCard = ({ product }: Props) => (
           <span className="font-bold block text-center">Tallas</span>
           <ul className="flex flex-row justify-center items-center">
             {product.sizes.map((size) => (
-              <li className="mr-4 last:mr-0">
+              <li className="mr-4 last:mr-0" key={size}>
                 <span className="block p-1">{size}</span>
               </li>
             ))}

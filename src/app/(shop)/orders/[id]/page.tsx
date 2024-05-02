@@ -1,7 +1,6 @@
-import Image from 'next/image';
 import { redirect } from 'next/navigation';
 
-import { OrderStatus, PaypalButton, Title } from '@/components';
+import { OrderStatus, PaypalButton, ProductImage, Title } from '@/components';
 import { getOrderById } from '@/actions';
 import { currencyFormat } from '@/utils';
 
@@ -38,8 +37,10 @@ export default async function OrderByIdPage({ params }: Props) {
                 key={item.product.slug + '-' + item.size}
                 className="flex mb-3 rounded-s-full bg-white pr-5"
               >
-                <Image
-                  src={require(`../../../../../public/products/${item.product.ProductImage[0].url}`)}
+                <ProductImage
+                  width={100}
+                  height={100}
+                  src={item.product.ProductImage[0].url}
                   style={{ width: '100px', height: '100px' }}
                   alt={item.product.title}
                   className="mr-5 rounded-s-full"

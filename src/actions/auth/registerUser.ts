@@ -9,7 +9,7 @@ type UserInfo = {
   password: string;
 };
 
-export const registerUser = async ({ name, email, password }: UserInfo) => {
+export async function registerUser({ name, email, password }: UserInfo) {
   try {
     const user = await prisma.user.create({
       data: {

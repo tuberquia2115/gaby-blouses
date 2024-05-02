@@ -1,11 +1,11 @@
 'use server';
 
-import { PaypalOrderStatusResponse } from '@/interfaces';
 import prisma from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 
-export const paypalCheckPayment = async (paypalTransactionId: string) => {
-  console.log({ paypalTransactionId });
+import { PaypalOrderStatusResponse } from '@/interfaces';
+
+export async function paypalCheckPayment(paypalTransactionId: string) {
 
   const authToken = await getPaypalBeareToken();
   console.log({ authToken });
@@ -62,7 +62,7 @@ export const paypalCheckPayment = async (paypalTransactionId: string) => {
   }
 };
 
-const getPaypalBeareToken = async (): Promise<string | null> => {
+async function getPaypalBeareToken(): Promise<string | null> {
   const PAYPAL_CLIENT_ID = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
   const PAYPLA_SECRET = process.env.PAYPLA_SECRET;
   const oauth2Url = process.env.PAYPAL_OAUTH_URL ?? '';
@@ -93,10 +93,10 @@ const getPaypalBeareToken = async (): Promise<string | null> => {
   }
 };
 
-const verifyPaypalPayment = async (
+async function verifyPaypalPayment(
   paypalTransactionId: string,
   bearerToken: string
-): Promise<PaypalOrderStatusResponse | null> => {
+): Promise<PaypalOrderStatusResponse | null> {
   const paypalOrderUrl = `${process.env.PAYPAL_ORDERS_URL}/${paypalTransactionId}`;
   const myHeaders = new Headers();
   myHeaders.append('Authorization', `Bearer ${bearerToken}`);

@@ -3,7 +3,7 @@
 import { signIn } from '@/auth.config';
 import { AuthError } from 'next-auth';
 
-export const authenticate = async (prevState: string | undefined, formData: FormData) => {
+export async function authenticate(prevState: string | undefined, formData: FormData) {
   'use server';
   try {
     await signIn('credentials', {
@@ -26,7 +26,7 @@ export const authenticate = async (prevState: string | undefined, formData: Form
   }
 };
 
-export const login = async (email: string, password: string) => {
+export async function login(email: string, password: string) {
   try {
     await signIn('credentials', { email, password });
     return {

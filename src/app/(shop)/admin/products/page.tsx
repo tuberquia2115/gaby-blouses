@@ -31,7 +31,7 @@ export default async function OrdersPage({ searchParams }: Props) {
       <div className="block md:hidden">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {products.map((product) => (
-            <ProductCard product={product} />
+            <ProductCard key={product.slug} product={product} />
           ))}
         </div>
       </div>

@@ -13,7 +13,7 @@ interface ProductToOrder {
 
 const TAX = 0.15;
 
-export const placeOrder = async (producIds: ProductToOrder[], address: Address) => {
+export async function placeOrder(producIds: ProductToOrder[], address: Address) {
   const session = await auth();
   const userId = session?.user.id;
 

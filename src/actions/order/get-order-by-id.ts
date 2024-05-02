@@ -3,7 +3,7 @@
 import { auth } from '@/auth.config';
 import prisma from '@/lib/prisma';
 
-export const getOrderById = async (orderId: string) => {
+export async function getOrderById(orderId: string) {
   const session = await auth();
 
   if (!session?.user) {

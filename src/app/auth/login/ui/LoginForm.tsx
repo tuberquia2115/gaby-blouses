@@ -1,12 +1,13 @@
 'use client';
 
-import { authenticate } from '@/actions';
+import React, { useEffect } from 'react';
 import clsx from 'clsx';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
-import React, { useEffect } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 import { IoInformationOutline } from 'react-icons/io5';
+
+import { useSearchParams } from 'next/navigation';
+import { authenticate } from '@/actions';
 
 export const LoginForm = () => {
   const searchParams = useSearchParams();

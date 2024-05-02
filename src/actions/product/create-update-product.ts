@@ -26,7 +26,7 @@ const productSchema = z.object({
   gender: z.nativeEnum(Gender),
 });
 
-export const createUpdateProduct = async (formData: FormData) => {
+export async function createUpdateProduct(formData: FormData) {
   const data = Object.fromEntries(formData);
 
   const productParsed = productSchema.safeParse(data);
@@ -117,7 +117,7 @@ export const createUpdateProduct = async (formData: FormData) => {
   }
 };
 
-const uploadImages = async (images: File[]) => {
+async function uploadImages(images: File[]) {
   try {
     const uploadPromises = images.map(async (image) => {
       try {

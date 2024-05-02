@@ -8,7 +8,7 @@ interface PaginationOptions {
   take?: number;
 }
 
-export const getPaginatedUsers = async ({ page = 1, take = 5 }: PaginationOptions) => {
+export async function getPaginatedUsers({ page = 1, take = 5 }: PaginationOptions) {
   const session = await auth();
 
   if (session?.user.role !== 'admin') {

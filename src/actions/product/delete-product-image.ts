@@ -5,7 +5,7 @@ import prisma from '@/lib/prisma';
 
 import { revalidatePath } from 'next/cache';
 
-export const deleteProductImage = async (imageId: number, imageUrl: string) => {
+export async function deleteProductImage(imageId: number, imageUrl: string) {
   if (!imageUrl.startsWith('http')) {
     return {
       ok: false,

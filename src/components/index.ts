@@ -1,4 +1,3 @@
-export * from './product/color-selector/ColorSelector';
 export * from './product/quantity-selector/QuantitySelector';
 export * from './product/size-selector/SizeSelector';
 export * from './product/slideshow/ProductMobileSlideShow';
