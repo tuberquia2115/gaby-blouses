@@ -25,10 +25,10 @@ export const SideMenu = () => {
   const isAuthenticated = !!session?.user;
   const isAdmin = session?.user.role === 'admin';
 
-  const onLogout = () => {
+  const onLogout = async  () => {
     localStorage.removeItem('shopping-cart');
     localStorage.removeItem('address-storage');
-    logout();
+   await logout();
   };
 
   return (
