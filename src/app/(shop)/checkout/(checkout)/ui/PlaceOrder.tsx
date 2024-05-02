@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import clsx from 'clsx';
 
 import { useAddressStore, useCartStore } from '@/store';
-import { currencyFormat, sleep } from '@/utils';
+import { currencyFormat } from '@/utils';
 import { placeOrder } from '@/actions';
 
 export const PlaceOrder = () => {

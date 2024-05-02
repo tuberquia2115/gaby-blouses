@@ -14,14 +14,8 @@ import prisma from '@/lib/prisma';
 // /checkout/address
 
 const authRoutes = ['/auth/login', '/auth/new-account'];
-const autheticatedRoutes = [
-  '/checkout',
-  '/checkout/address',
-  '/profile',
-  '/admin',
-  '/admin/orders',
-  '/admin/users',
-];
+const adminAutheticatedRoutes = ['/admin', '/admin/orders', '/admin/users',]
+const autheticatedRoutes = ['/checkout', '/checkout/address', '/profile'];
 
 export const authConfig: NextAuthConfig = {
   pages: {
@@ -38,7 +32,7 @@ export const authConfig: NextAuthConfig = {
       // console.log('jwt', { token, user, session, profile, account, trigger });
 
       if (user) {
-        token.data = user;
+        token.data = user;  
       }
 
       return token;
@@ -55,12 +49,17 @@ export const authConfig: NextAuthConfig = {
       const isAdminRole = auth?.user.role === 'admin';
       const isOnAuth = authRoutes.includes(nextUrl.pathname);
       const isOnDashboard = autheticatedRoutes.includes(nextUrl.pathname);
+      const isOnDashboardAdmin = adminAutheticatedRoutes.includes(nextUrl.pathname)
+      
+      if (isOnDashboardAdmin) {
+        if (!isAdminRole) {
+          return false
+        }
+        return true;
+      }
 
       if (isOnDashboard) {
         if (isLoggedIn) {
-          if (!isAdminRole) {
-            return false;
-          }
           return true;
         }
         return false; // Redirect unauthenticated users to login page

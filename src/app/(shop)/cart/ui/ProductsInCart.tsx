@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { IoTrashOutline } from 'react-icons/io5';
-import Image from 'next/image';
 import Link from 'next/link';
 
 import { ProductImage, QuantitySelector } from '@/components';

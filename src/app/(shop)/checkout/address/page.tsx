@@ -6,6 +6,7 @@ import { auth } from '@/auth.config';
 export default async function AddressPage() {
   const countries = await getCountries();
   const session = await auth();
+  
 
   if (!session?.user) {
     return <h3 className="text-5xl">500 - NO hay sessión de usuario</h3>;
