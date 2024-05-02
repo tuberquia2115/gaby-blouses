@@ -23,7 +23,11 @@ export async function generateMetadata({ params }: Props, parent: ResolvingMetad
   const product = await getProductBySlug(slug);
   const hasImages = Boolean(product?.images.length);
 
-  const images = hasImages ? `/products/${product?.images[1]}` : '/imgs/placeholder.jpg';
+  const domain = "https://gaby-blouses.netlify.app"
+
+  const images = hasImages ? `${domain}/products/${product?.images[1]}` : `${domain}/imgs/placeholder.jpg`;
+
+  console.log("images =>>>", images);
 
   // optionally access and extend (rather than replace) parent metadata
   // const previousImages = (await parent).openGraph?.images || [];
@@ -35,7 +39,7 @@ export async function generateMetadata({ params }: Props, parent: ResolvingMetad
       title: product?.title ?? 'Producto no encontrado',
       description: product?.description ?? "",
       // images: [], // https://misitioweb.com/products/image.png
-      images: [ `/products/${ product?.images[1] }`],
+      images: [images],
     },
   };
 }
