@@ -23,23 +23,18 @@ export const authConfig: NextAuthConfig = {
     newUser: '/auth/new-account',
   },
 
-  session: {
-    strategy: 'jwt',
-  },
-
   callbacks: {
-    async jwt({ token, user, session, profile, account, trigger }) {
+    jwt({ token, user }) {
       // console.log('jwt', { token, user, session, profile, account, trigger });
 
       if (user) {
-        token.data = user;  
+        token.data = user;
       }
 
       return token;
     },
 
-    async session({ newSession, token, user, trigger, session }) {
-      // console.log('session', { newSession, token, user, trigger, session });
+    session({ token, user, session }) {
       session.user = token.data as any;
       return session;
     },
@@ -50,7 +45,7 @@ export const authConfig: NextAuthConfig = {
       const isOnAuth = authRoutes.includes(nextUrl.pathname);
       const isOnDashboard = autheticatedRoutes.includes(nextUrl.pathname);
       const isOnDashboardAdmin = adminAutheticatedRoutes.includes(nextUrl.pathname)
-      
+
       if (isOnDashboardAdmin) {
         if (!isAdminRole) {
           return false
