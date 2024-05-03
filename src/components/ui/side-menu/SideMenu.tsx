@@ -29,6 +29,7 @@ export const SideMenu = () => {
     await signOut({ callbackUrl: '/', redirect: false })
     localStorage.removeItem('shopping-cart');
     localStorage.removeItem('address-storage');
+    closeMenu()
   };
 
   return (
