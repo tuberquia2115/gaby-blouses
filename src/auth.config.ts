@@ -28,7 +28,7 @@ export const authConfig: NextAuthConfig = {
   },
 
   callbacks: {
-    jwt({ token, user }) {
+    async jwt({ token, user }) {
       // console.log('jwt', { token, user, session, profile, account, trigger });
 
       if (user) {
@@ -38,7 +38,7 @@ export const authConfig: NextAuthConfig = {
       return token;
     },
 
-    session({ token, user, session }) {
+    async session({ token, user, session }) {
       session.user = token.data as any;
       return session;
     },

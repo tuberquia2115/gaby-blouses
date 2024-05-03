@@ -26,9 +26,9 @@ export const SideMenu = () => {
   const isAdmin = session?.user.role === 'admin';
 
   const onLogout = async  () => {
+    await logout();
     localStorage.removeItem('shopping-cart');
     localStorage.removeItem('address-storage');
-   await logout();
   };
 
   return (
