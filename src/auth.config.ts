@@ -22,11 +22,12 @@ export const authConfig: NextAuthConfig = {
     signIn: '/auth/login',
     newUser: '/auth/new-account',
   },
-
+  session: {
+    strategy: 'jwt',
+  },
   callbacks: {
-    async jwt({ token, user }) {
+    jwt({ token, user }) {
       // console.log('jwt', { token, user, session, profile, account, trigger });
-
       if (user) {
         token.data = user;
       }
@@ -34,7 +35,7 @@ export const authConfig: NextAuthConfig = {
       return token;
     },
 
-    async session({ token, user, session }) {
+    session({ token, user, session }) {
       session.user = token.data as any;
       return session;
     },

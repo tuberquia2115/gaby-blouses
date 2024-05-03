@@ -11,22 +11,22 @@ import {
 } from 'react-icons/io5';
 import { useUIStore } from '@/store';
 import clsx from 'clsx';
-import { useSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 
-import { logout } from '@/actions';
 import NavItem from './NavItem';
 
 export const SideMenu = () => {
+
   const isSideMenuOpen = useUIStore((state) => state.isSideMenuOpen);
   const closeMenu = useUIStore((state) => state.closeSideMenu);
 
-  const { data: session } = useSession();
+  const { data: session, status } = useSession()
 
-  const isAuthenticated = !!session?.user;
+  const isAuthenticated = status === 'authenticated'
   const isAdmin = session?.user.role === 'admin';
 
-  const onLogout = async  () => {
-    await logout();
+  const onLogout = async () => {
+    await signOut({ callbackUrl: '/', redirect: false })
     localStorage.removeItem('shopping-cart');
     localStorage.removeItem('address-storage');
   };
