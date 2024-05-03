@@ -23,10 +23,6 @@ export const authConfig: NextAuthConfig = {
     newUser: '/auth/new-account',
   },
 
-  session: {
-    strategy: 'jwt'
-  },
-
   callbacks: {
     async jwt({ token, user }) {
       // console.log('jwt', { token, user, session, profile, account, trigger });
