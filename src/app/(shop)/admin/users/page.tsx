@@ -22,12 +22,12 @@ export default async function UsersPage({ searchParams }: Props) {
   }
 
   return (
-    <>
+    <div className='px-3'>
       <Title title="Mantenimiento de usuarios" />
-      <div className="mb-10">
-        <UsersTable users={users} />
-      </div>
+
+      <UsersTable users={users} />
+
       <Pagination totalPages={totalPages!} />
-    </>
+    </div>
   );
 }

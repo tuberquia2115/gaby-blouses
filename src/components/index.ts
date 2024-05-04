@@ -17,6 +17,7 @@ export * from './ui/not-found/PageNotFound';
 export * from './ui/side-menu/SideMenu';
 export * from './ui/title/Title';
 export * from './ui/top-menu/TopMenu';
+export * from './ui/nav-links/NavLinks';
 
 export * from './paypal/PaypalButton';
 

@@ -23,10 +23,10 @@ export default async function OrderByIdPage({ params }: Props) {
   const orderItems = order?.OrderItem;
 
   return (
-    <div className="flex justify-center items-center mb-72 px-10 sm:px-0">
-      <div className="flex flex-col w-8/12">
+    <div className="flex justify-center items-center mb-10 sm:mb-72 px-5">
+      <div className="flex flex-col sm:w-10/12 w-full">
         <Title title={`Orden #${id.split('-').at(-1)}`} />
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           {/** Cart */}
           <div className="flex flex-col mt-5">
             <OrderStatus isPaid={order!.isPaid} />

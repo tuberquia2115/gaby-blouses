@@ -9,11 +9,11 @@ import {
   IoShirtOutline,
   IoTicketOutline,
 } from 'react-icons/io5';
-import { useUIStore } from '@/store';
 import clsx from 'clsx';
 import { useSession, signOut } from 'next-auth/react';
 
 import NavItem from './NavItem';
+import { useUIStore } from '@/store';
 
 export const SideMenu = () => {
 
@@ -26,9 +26,9 @@ export const SideMenu = () => {
   const isAdmin = session?.user.role === 'admin';
 
   const onLogout = async () => {
-    await signOut({ callbackUrl: '/', redirect: false })
     localStorage.removeItem('shopping-cart');
     localStorage.removeItem('address-storage');
+    await signOut({ callbackUrl: '/', redirect: false })
     closeMenu()
   };
 
@@ -50,13 +50,13 @@ export const SideMenu = () => {
       <nav
         // todo: efecto de lide
         className={clsx(
-          'fixed p-5 right-0 top-0 w-[450px] h-screen bg-white z-20 shadow-2xl transform transition-all duration-300',
+          'fixed p-5 right-0 top-0 sm:w-[450px] w-full h-screen bg-white z-20 shadow-2xl transform transition-all duration-300',
           { 'translate-x-full': !isSideMenuOpen }
         )}
       >
         <IoCloseCircleOutline
           size={30}
-          className="absolute top-5 right-10 md:right-5 cursor-pointer"
+          className="absolute top-5 right-5 cursor-pointer"
           onClick={() => closeMenu()}
         />
 
