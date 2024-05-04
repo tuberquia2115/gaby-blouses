@@ -28,7 +28,7 @@ export const SideMenu = () => {
   const onLogout = async () => {
     localStorage.removeItem('shopping-cart');
     localStorage.removeItem('address-storage');
-    await signOut({ callbackUrl: '/', redirect: false })
+    await signOut({ callbackUrl: '/' })
     closeMenu()
   };
 
