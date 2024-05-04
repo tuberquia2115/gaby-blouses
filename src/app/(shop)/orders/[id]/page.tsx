@@ -47,9 +47,6 @@ export default async function OrderByIdPage({ params }: Props) {
                 />
                 <div>
                   <p>{item.product.title}</p>
-                  <p>
-                    ${item.price} * {item.quantity}
-                  </p>
                   <p className="font-bold">Subtotal:{currencyFormat(item.price * item.quantity)}</p>
                 </div>
               </div>
