@@ -6,10 +6,10 @@ import { OrderSummary } from './ui/OrderSummary';
 
 export default function CartPage() {
   return (
-    <div className="flex justify-center items-center mb-72 px-2 sm:px-10">
+    <div className="flex justify-center items-center mb-20 sm:mb-72 px-2">
       <div className="flex flex-col sm:w-10/12 w-full">
-        <Title title="Carrito" />
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
+        <Title title="Carrito 🛒" />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           {/** Cart */}
           <div className="flex flex-col">
             <span className="text-xl">Agregar más productos</span>

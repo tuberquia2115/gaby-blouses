@@ -1,11 +1,11 @@
 export const revalidate = 60;
 
+import type { Metadata } from 'next';
 import { Gender } from '@prisma/client';
 import { redirect } from 'next/navigation';
-import type { Metadata } from 'next';
 
 import { getPaginatedProductsWithImages } from '@/actions';
-import { Pagination, ProductGrid, Title } from '@/components';
+import { NavLinks, Pagination, ProductGrid, Title } from '@/components';
 
 interface Props {
   searchParams: {
@@ -38,16 +38,19 @@ export default async function GenderByPage({ params, searchParams }: Props) {
     redirect(`/gender/${gender}`);
   }
 
-  // if (id === 'kids') {
-  //   notFound();
-  // }
-
   return (
-    <>
-      <Title title={`Articulos ${labels[gender]}`} subtitle={'Productos para'} className="mb-2" />
-
+    <div className='px-5'>
+      <div className="block sm:hidden border-b-2 border-t-gray-400">
+        <h5 className='antialiased text-xl pl-2 font-semibold text-blue-600'>
+          Categorías
+        </h5>
+        <div className="flex justify-between">
+          <NavLinks />
+        </div>
+      </div>
+      <Title title={`Articulos ${labels[gender]}`} className="mb-2" />
       <ProductGrid products={products} />
       <Pagination totalPages={totalPages} />
-    </>
+    </div>
   );
 }

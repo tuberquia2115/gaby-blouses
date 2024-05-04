@@ -1,13 +1,13 @@
 export const revalidate = 0;
 
-// https://tailwindcomponents.com/component/hoverable-table
-import { getPaginatedOrders } from '@/actions';
-import { Pagination, Title } from '@/components';
 import clsx from 'clsx';
-
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { IoCardOutline } from 'react-icons/io5';
+
+import { getPaginatedOrders } from '@/actions';
+import { Pagination, Title } from '@/components';
+
 
 interface Props {
   searchParams: {
@@ -27,9 +27,9 @@ export default async function OrdersPage({ searchParams }: Props) {
     redirect('/auth/login');
   }
   return (
-    <>
+    <div className='px-3'>
       <Title title="Orders" />
-      <div className="mb-10">
+      <div className="mb-10 overflow-scroll">
         <table className="min-w-full">
           <thead className="bg-blue-600 border-b">
             <tr>
@@ -76,6 +76,6 @@ export default async function OrdersPage({ searchParams }: Props) {
         </table>
       </div>
       <Pagination totalPages={totalPages!} />
-    </>
+    </div>
   );
 }

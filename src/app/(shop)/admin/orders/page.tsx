@@ -1,13 +1,14 @@
 export const revalidate = 0;
 
 // https://tailwindcomponents.com/component/hoverable-table
-import { getPaginatedOrders } from '@/actions';
-import { Pagination, Title } from '@/components';
-import clsx from 'clsx';
-
 import Link from 'next/link';
+import clsx from 'clsx';
 import { redirect } from 'next/navigation';
 import { IoCardOutline } from 'react-icons/io5';
+
+import { getPaginatedOrders } from '@/actions';
+import { Pagination, Title } from '@/components';
+
 
 interface Props {
   searchParams: {
@@ -27,9 +28,9 @@ export default async function OrdersPage({ searchParams }: Props) {
     redirect('/auth/login');
   }
   return (
-    <>
-      <Title title="Todas las ordenes" />
-      <div className="mb-10">
+    <div className='px-3'>
+      <Title title="Todas las ordenes" subtitle='Vista para visualizar el estado de las ordenes de todos los usuarios' />
+      <div className='overflow-scroll mb-10'>
         <table className="min-w-full">
           <thead className="bg-blue-600 border-b">
             <tr>
@@ -65,7 +66,7 @@ export default async function OrdersPage({ searchParams }: Props) {
                     {order.isPaid ? 'Pagada' : 'No Pagada'}
                   </span>
                 </td>
-                <td className="text-sm text-gray-900 font-light px-6 ">
+                <td className="text-sm min-w-32 text-gray-900 font-light px-6 ">
                   <Link href={`/orders/${order.id}`} className="hover:underline">
                     Ver orden
                   </Link>
@@ -76,6 +77,6 @@ export default async function OrdersPage({ searchParams }: Props) {
         </table>
       </div>
       <Pagination totalPages={totalPages!} />
-    </>
+    </div>
   );
 }

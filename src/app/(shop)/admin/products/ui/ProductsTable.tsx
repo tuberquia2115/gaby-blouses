@@ -1,9 +1,8 @@
+import Link from 'next/link';
+
 import { ProductImage } from '@/components';
 import { Product } from '@/interfaces';
-
 import { currencyFormat } from '@/utils';
-import Link from 'next/link';
-import React from 'react';
 
 interface IProduct extends Product {
   ProductImage: { url: string }[];
@@ -11,11 +10,11 @@ interface IProduct extends Product {
 
 interface Props {
   products: IProduct[];
-  className: React.HTMLAttributes<HTMLDivElement>['className'];
 }
-export const ProductsTable = ({ products, className }: Props) => {
+
+export const ProductsTable = ({ products }: Props) => {
   return (
-    <div className="mb-10 hidden md:block">
+    <div className="mb-10 hidden md:block overflow-scroll">
       <table className="min-w-full">
         <thead className="bg-blue-600 border-b">
           <tr>

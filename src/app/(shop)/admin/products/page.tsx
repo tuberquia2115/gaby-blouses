@@ -29,14 +29,14 @@ export default async function OrdersPage({ searchParams }: Props) {
       </div>
 
       <div className="block md:hidden">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 gap-3">
           {products.map((product) => (
             <ProductCard key={product.slug} product={product} />
           ))}
         </div>
       </div>
 
-      <ProductsTable products={products} className="mb-10 hidden md:block" />
+      <ProductsTable products={products} />
 
       <Pagination totalPages={totalPages} />
     </>

@@ -1,6 +1,7 @@
+import { redirect } from 'next/navigation';
+
 import { Title } from '@/components';
 import { getProductBySlug } from '../../../../../actions/product/get-product-by-slug';
-import { redirect } from 'next/navigation';
 import { ProductForm } from './ui/ProductForm';
 import { getCategories } from '@/actions';
 
@@ -15,17 +16,15 @@ export default async function ProdutPage({ params }: Props) {
 
   const [product, categories] = await Promise.all([getProductBySlug(slug), getCategories()]);
 
-  // Todo: new
-
   if (!product && slug !== 'new') {
     redirect('/admin/products');
   }
 
   const title = slug === 'new' ? 'Nuevo Producto' : 'Editar Producto';
   return (
-    <>
+    <div className='px-3'>
       <Title title={title} />
       <ProductForm product={product ?? {}} categories={categories} />
-    </>
+    </div>
   );
 }
