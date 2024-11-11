@@ -25,7 +25,7 @@ export const Pagination = ({ totalPages }: Props) => {
   }
 
   const createPageUrl = (pageNumber: number | string) => {
-    const params = new URLSearchParams(searchParams);
+    const params = new URLSearchParams(searchParams.toString());
 
     if (pageNumber === '...') {
       return `${pathname}?${params.toString}`;
