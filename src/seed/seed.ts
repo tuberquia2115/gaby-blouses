@@ -41,16 +41,10 @@ export const initialData: SeedData = {
   categories: ['Shirts', 'Pants', 'Hoodies', 'Hats'],
   users: [
     {
-      email: 'tuberquia@gmail.com',
-      password: bcryptjs.hashSync('123456'),
+      email: 'devtubercode@gmail.com',
+      password: bcryptjs.hashSync('devtubercode1121*'),
       name: 'Jose Manuel Tuberquia',
       role: 'admin',
-    },
-    {
-      email: 'graciano@gmail.com',
-      password: bcryptjs.hashSync('123456'),
-      name: 'Jose Manuel Graciano',
-      role: 'user',
     },
   ],
   products: [

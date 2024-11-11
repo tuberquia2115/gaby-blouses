@@ -1,10 +1,10 @@
 {
-  "name": "gaby-blouses",
+  "name": "gaelo-store",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "yarn run prisma:deploy && next build",
+    "build": "pnpm run prisma:deploy && next build",
     "dev:turbo": "next dev --turbo",
     "start": "next start",
     "lint": "next lint",
@@ -42,5 +42,6 @@
     "tailwindcss": "^3.3.0",
     "ts-node": "^10.9.2",
     "typescript": "^5"
-  }
+  },
+  "packageManager": "pnpm@9.9.0"
 }

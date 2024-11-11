@@ -14,8 +14,8 @@ import prisma from '@/lib/prisma';
 // /checkout/address
 
 const authRoutes = ['/auth/login', '/auth/new-account'];
-const adminAutheticatedRoutes = ['/admin', '/admin/orders', '/admin/users',]
-const autheticatedRoutes = ['/checkout', '/checkout/address', '/profile'];
+const adminAuthenticatedRoutes = ['/admin', '/admin/orders', '/admin/users'];
+const authenticatedRoutes = ['/checkout', '/checkout/address', '/profile'];
 
 export const authConfig: NextAuthConfig = {
   pages: {
@@ -44,12 +44,14 @@ export const authConfig: NextAuthConfig = {
       const isLoggedIn = !!auth?.user;
       const isAdminRole = auth?.user.role === 'admin';
       const isOnAuth = authRoutes.includes(nextUrl.pathname);
-      const isOnDashboard = autheticatedRoutes.includes(nextUrl.pathname);
-      const isOnDashboardAdmin = adminAutheticatedRoutes.includes(nextUrl.pathname)
+      const isOnDashboard = authenticatedRoutes.includes(nextUrl.pathname);
+      const isOnDashboardAdmin = adminAuthenticatedRoutes.includes(
+        nextUrl.pathname
+      );
 
       if (isOnDashboardAdmin) {
         if (!isAdminRole) {
-          return false
+          return false;
         }
         return true;
       }
@@ -81,7 +83,9 @@ export const authConfig: NextAuthConfig = {
         const { email, password } = parsedCredentials.data;
 
         // Buscar el correo
-        const user = await prisma.user.findUnique({ where: { email: email.toLowerCase() } });
+        const user = await prisma.user.findUnique({
+          where: { email: email.toLowerCase() },
+        });
         if (!user) return null;
 
         // comparar las contraseñas

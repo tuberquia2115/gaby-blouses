@@ -16,32 +16,33 @@ import NavItem from './NavItem';
 import { useUIStore } from '@/store';
 
 export const SideMenu = () => {
-
   const isSideMenuOpen = useUIStore((state) => state.isSideMenuOpen);
   const closeMenu = useUIStore((state) => state.closeSideMenu);
 
-  const { data: session, status } = useSession()
+  const { data: session, status } = useSession();
 
-  const isAuthenticated = status === 'authenticated'
+  const isAuthenticated = status === 'authenticated';
   const isAdmin = session?.user.role === 'admin';
 
   const onLogout = async () => {
     localStorage.removeItem('shopping-cart');
     localStorage.removeItem('address-storage');
-    await signOut({ callbackUrl: '/' })
-    closeMenu()
+    await signOut({ callbackUrl: '/' });
+    closeMenu();
   };
 
   return (
     <div className="">
       {/** Background back */}
-      {isSideMenuOpen && <div className="fixed top-0 left-0 w-screen h-screen z-10 bg-black opacity-30" />}
+      {isSideMenuOpen && (
+        <div className="fixed top-0 left-0 w-screen h-screen z-20 bg-black opacity-30" />
+      )}
 
       {/** Blur */}
       {isSideMenuOpen && (
         <div
           onClick={closeMenu}
-          className="fade-in fixed top-0 left-0 w-screen h-screen z-10 backdrop-filter backdrop-blur-sm"
+          className="fade-in fixed top-0 left-0 w-screen h-screen z-20 backdrop-filter backdrop-blur-sm"
         />
       )}
 

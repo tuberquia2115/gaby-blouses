@@ -1,6 +1,6 @@
-export * from './address/set-user-address';
-export * from './address/delete-user-address';
-export * from './address/get-user-address';
+export * from './auth/address/set-user-address';
+export * from './auth/address/delete-user-address';
+export * from './auth/address/get-user-address';
 
 export * from './auth/login';
 export * from './auth/registerUser';

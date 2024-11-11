@@ -3,13 +3,16 @@
 import { signIn } from '@/auth.config';
 import { AuthError } from 'next-auth';
 
-export async function authenticate(prevState: string | undefined, formData: FormData) {
+export async function authenticate(
+  prevState: string | undefined,
+  formData: FormData
+) {
   'use server';
   try {
     await signIn('credentials', {
       ...Object.fromEntries(formData),
-      redirect: false,
-      redirectTo: '',
+      redirect: true,
+      redirectTo: '/',
     });
 
     return 'Success';
@@ -24,7 +27,7 @@ export async function authenticate(prevState: string | undefined, formData: Form
     }
     throw error;
   }
-};
+}
 
 export async function login(email: string, password: string) {
   try {
@@ -39,4 +42,4 @@ export async function login(email: string, password: string) {
       message: 'no se pudo iniciar sesión',
     };
   }
-};
+}

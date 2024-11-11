@@ -19,7 +19,7 @@ export async function setUserAddress(address: Address, userId: string) {
       message: 'No se pudo actualizar la dirección',
     };
   }
-};
+}
 
 const createOrReplaceAddress = async (address: Address, userId: string) => {
   try {

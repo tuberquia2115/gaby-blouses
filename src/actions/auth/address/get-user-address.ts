@@ -21,4 +21,4 @@ export async function getUserAddress(userId: string) {
     console.log(error);
     return null;
   }
-};
+}

@@ -21,12 +21,17 @@ export const ProductImage = ({
   onMouseEnter,
   onMouseLeave,
 }: Props) => {
-  const localSrc = src ? (src.startsWith('http') ? src : `/products/${src}`) : '/imgs/placeholder.jpg';
+  const localSrc = src
+    ? src.startsWith('http')
+      ? src
+      : `/products/${src}`
+    : '/imgs/placeholder.jpg';
   return (
     <Image
       src={localSrc}
       width={width}
       height={height}
+      priority
       alt={alt}
       className={className}
       style={style}
